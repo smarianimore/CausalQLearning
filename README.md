@@ -1,4 +1,5 @@
 # Improving Reinforcement Learning-based Autonomous Agents with Causal Models
+
 **Paper**: [Improving Reinforcement Learning-based Autonomous Agents with Causal Models]()
 
 **Abstract**:
@@ -91,6 +92,7 @@ values_reasons_parameters.png
 ```
 
 ## Installation
+
 1. Create a new python virtual environment with 'python 3.10'
 2. Install 'requirements'
    ```
@@ -104,7 +106,9 @@ values_reasons_parameters.png
    ```
    python3.10 -m scripts/example.py
    ```
+   
 ## How to Reproduce Paper Results
+
    For comparison: Vanilla vs Causal Offline vs Causal Online in Grid-like Environments:
    ```
    python setup.py install
@@ -121,17 +125,38 @@ values_reasons_parameters.png
    ```
 
 ## Parameters
+
+Table 1 describes the parameters relevant for CDRL, along with their impact on the learning process. 
+
 ![experiments_parameters](experiments_parameters.png)
+
+Table 2 instead specifies the values of such parameters along with the reason behind the choice of such values.  
+
 ![values_reasons_parameters](values_reasons_parameters.png)
 
+The value for the $\epsilon$ decay variable ($\lambda$) is determined as:
+
+$$ \lambda = \frac{- \ln(\epsilon_{\text{min}})}{n_{\text{ep}} \times \text{exp}_{\text{game}}} $$
+
+where $\epsilon_{\text{min}}$ denotes the minimum exploration value to keep, $n_{\text{ep}}$ stands for the chosen number of learning episodes, and $\text{exp}_{\text{game}}$ indicates the game stage at which $\epsilon_{\text{min}}$ must be reached.
+
 ## Results
+
 ### Vanilla vs Causal Offline vs Causal Online
+
+Table 2 expands Table 1 in Section 4.2 of the main body of the paper by reporting the full results about **RQ1** and **RQ3**.
+
 ![res_comp123_1](res_comp123_1.png)
 ![res_comp123_2](res_comp123_2.png)
+
 ### Transfer Learning
+
+Table 3 expands Table 3 in Section 4.2 of the main body of the paper by reporting the full results about **RQ4**.
+
 ![res_transfer_learning](res_transfer_learning.png)
 
 ## Develop your Own Extension
+
 Your extension can take various paths:
 1) One direction involves modifying the causal discovery algorithms.
 2) Another direction entails adding new kinds of agent (currently Q-Learning and DQN have been developed). It's crucial to maintain consistency with the training class by implementing the "__update_Q_or_memory__", "__update_exp_fact__", "__select_action__" and "__return_q_table__" functions. Additionally, in the "global_variables.py" script, you need to include your custom label.
